@@ -6,7 +6,7 @@ import Template from "./components/pages/Template";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/web-app">
       <Routes>
         <Route path="/" element={<Template />}>
           <Route index element={<Home />} />

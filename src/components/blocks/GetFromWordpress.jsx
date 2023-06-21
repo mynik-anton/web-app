@@ -29,7 +29,7 @@ const GetFromWordpress = () => {
     sortData = select.selectedValue.split("_");
   }
 
-  console.log(currentPage);
+  //console.log(currentPage);
 
   const REST_WP_URL = `https://eltexsl.ru/wp-json/wp/v2/posts?page=${currentPage}&per_page=9&orderby=${sortData[0]}&order=${sortData[1]}`;
 
@@ -53,7 +53,7 @@ const GetFromWordpress = () => {
       .then((response) => {
         const getPages = response.headers.get("X-WP-TotalPages");
         setMaxPage(getPages);
-        console.log(getPages);
+        //console.log(getPages);
         return response.json();
       })
       .then((posts) => {
@@ -107,14 +107,15 @@ const GetFromWordpress = () => {
   return (
     <div className="section__posts">
       <div className="container">
-        <h2 className="text-4xl font-bold mb-8">
+        <h2 className="md:text-4xl md:mb-8 text-2xl font-bold mb-4">
           Задача 1: Асинхронные запросы{" "}
         </h2>
         <div className="font-normal mb-8">
           В данной задаче посылаются асинхронный запросы к WordPress через REST
-          API. Урок показывает навыки владения асинхронными запросами, а также
+          API. Задача показывает навыки владения асинхронными запросами, а также
           навыки владения такими хуками как useState и useEffect. Так же имеется
-          сортировка работающая на основе React Router DOM.
+          сортировка и пагинация работающая на основе React Router DOM и GET
+          параметров.
         </div>
         <div className="text-sm mb-2">Выбрать сортировку:</div>
         <form>
@@ -140,35 +141,34 @@ const GetFromWordpress = () => {
             </span>
           </div>
         ) : posts.length > 0 ? (
-          <div className="posts__items">
-            {posts.map((value) => (
-              <SinglePost key={value.id} props={value} />
-            ))}
+          <>
+            <div className="posts__items">
+              {posts.map((value) => (
+                <SinglePost key={value.id} props={value} />
+              ))}
+            </div>
             <div className="posts__navigation">
               {currentPage > 1 && (
                 <button
-                  className="posts__navigation__prev bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
+                  className="md:m-5 posts__navigation__prev bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
                   onClick={pagginationPrevClick}
                 >
                   Назад
                 </button>
               )}
-              <button
-                className="posts__navigation__current bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
-                onClick={pagginationNextClick}
-              >
+              <button className="md:m-5 posts__navigation__current text-white font-bold py-2 px-4 rounded m-2">
                 {currentPage}
               </button>
               {currentPage < maxPage && (
                 <button
-                  className="posts__navigation__prev bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
+                  className="md:m-5 posts__navigation__prev bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
                   onClick={pagginationNextClick}
                 >
                   Вперед
                 </button>
               )}
             </div>
-          </div>
+          </>
         ) : (
           <div className="text-4xl font-bold m-8 text-center">
             Посты не найдены.

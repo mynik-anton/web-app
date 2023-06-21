@@ -213,6 +213,7 @@ input[type="number"]::-ms-reveal {
 
 .header {
   position: relative;
+  display: none;
   background: #fff;
   padding: 20px 0;
   .header__menu {
@@ -248,13 +249,13 @@ input[type="number"]::-ms-reveal {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba($color: #000000, $alpha: 0.55);
+    background: rgba($color: #000000, $alpha: 0.75);
     z-index: 2;
   }
   .container {
     display: flex;
     align-items: center;
-    min-height: 700px;
+    min-height: 400px;
     padding-top: 150px;
     padding-bottom: 150px;
   }
@@ -263,7 +264,7 @@ input[type="number"]::-ms-reveal {
     z-index: 3;
     //background: rgba($color: #000000, $alpha: 0.35);
     max-width: 50%;
-    padding: 40px;
+    padding: 0px;
     border-radius: 20px;
   }
   .banner__content__title {
@@ -286,6 +287,35 @@ input[type="number"]::-ms-reveal {
     @include set_background_img(cover);
     z-index: 1;
   }
+  @include _1200() {
+    .banner__content {
+      max-width: 100%;
+    }
+  }
+  @include _768() {
+    .container {
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+  }
+  @include _576() {
+    margin-bottom: 40px;
+    .banner__content {
+      text-align: center;
+    }
+    .banner__content__desc {
+      font-size: 15px;
+      line-height: 180%;
+      font-weight: 300;
+    }
+    .banner__content__title {
+      font-size: 22px;
+    }
+    .container {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
 }
 
 .section__posts {
@@ -297,7 +327,7 @@ input[type="number"]::-ms-reveal {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 50px -15px;
+    margin: 50px -15px 0px;
   }
   .posts__item {
     position: relative;
@@ -356,6 +386,34 @@ input[type="number"]::-ms-reveal {
     line-height: 160%;
     font-weight: 400;
   }
+  .posts__navigation {
+    @include flexbox();
+    @include flex_wrap(wrap);
+    justify-content: center;
+  }
+  .posts__navigation__current {
+    background-color: #039917;
+  }
+  @include _1200() {
+    .posts__item {
+      position: relative;
+      flex: 0 0 calc(50% - 30px);
+      width: calc(50% - 30px);
+    }
+  }
+  @include _768() {
+    .posts__items {
+      margin: 30px -15px 0;
+    }
+    .posts__item {
+      position: relative;
+      flex: 0 0 calc(100% - 30px);
+      width: calc(100% - 30px);
+    }
+    .posts__item__content {
+      padding: 20px;
+    }
+  }
 }
 
 .select-wrapper {
@@ -373,4 +431,105 @@ input[type="number"]::-ms-reveal {
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
   pointer-events: none;
+}
+
+.section__game {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 60px;
+
+  .game__message {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    top: 50%;
+    @include set_center_wh();
+
+    color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 280px;
+    strong {
+      display: block;
+    }
+  }
+  .game__message-win {
+    background-color: #039917;
+  }
+  .game__message-lose {
+    background-color: #b31f1f;
+  }
+  .game__message-draw {
+    background-color: #5d5d5d;
+  }
+  .game__items {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .game__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 calc(100% / 8);
+    width: calc(100% / 8);
+    height: 62.5px;
+    background-color: #1466226e;
+    border: 1px solid #ffffff96;
+    &::after {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      @include set_center_wh();
+      height: 60%;
+      width: 60%;
+      border-radius: 100%;
+    }
+  }
+  .game__item__white {
+    &::after {
+      content: "";
+      background: #fff;
+    }
+  }
+  .game__item__black {
+    &::after {
+      content: "";
+      background: #181818;
+    }
+  }
+  .game__item__can-move {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &::after {
+      content: "";
+      background: #039917;
+      height: 30%;
+      width: 30%;
+    }
+  }
+  @include _576() {
+    .game__items {
+      max-width: 290px;
+    }
+    .game__item {
+      height: 36.25px;
+    }
+  }
+}
+
+footer {
+  display: none;
 }
